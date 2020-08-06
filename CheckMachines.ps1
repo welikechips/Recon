@@ -1,6 +1,9 @@
 #CheckMachines.ps1 List of ips loaded to ps script
 # NOTE: This will work on domain only
-$computer = Get-Content -path '.\cdcteam.txt'
+$ipsubnet = '192.168.0.'
+$computers = 1..10 | ForEach-Object -Process {$ipsubnet + $_}
+# OR
+#$computers = Get-Content -path '.\computers.txt'
 $DateStr = (Get-Date).ToString("yyyyMMdd-HH_mm_ss")
 $outputFile = ".\workstations-users-$DateStr.csv"
 Write-Host "" > $outputFile
@@ -35,7 +38,7 @@ try {
 return $result            
 }
 
-foreach($machine in $computer){
+foreach($machine in $computers){
 	$pinger = "ping -n 1 -w 1 $machine"
 	$pingresult = Invoke-Expression $pinger | find "`"Lost = 0`"" 
 	$machine
