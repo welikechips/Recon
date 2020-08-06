@@ -1,4 +1,5 @@
 #CheckMachines.ps1 List of ips loaded to ps script
+# NOTE: This will work on domain only
 $computer = Get-Content -path '.\cdcteam.txt'
 $DateStr = (Get-Date).ToString("yyyyMMdd-HH_mm_ss")
 $outputFile = ".\workstations-users-$DateStr.csv"
